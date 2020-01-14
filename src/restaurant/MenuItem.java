@@ -8,14 +8,16 @@ public class MenuItem {
     private String category;
     private boolean isNew;
 
-    private Date dateLastModified;
+    private String name;
+    private Date dateCreated;
 
     // Constructors
-    public MenuItem(double price, String description, String category) {
+    public MenuItem(String name, double price, String description, String category) {
+        this.name = name;
         this.price = price;
         this.description = description;
         this.category = category;
-        this.dateLastModified = new Date();
+        this.dateCreated = new Date();
         this.isNew = true;
     }
 
@@ -23,21 +25,14 @@ public class MenuItem {
     public void setPrice(double price) {
         this.price = price;
     }
-
-    public void setDescription(String description) {
-        this.description = description;
-        this.dateLastModified = new Date();
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public void setIsNew(boolean isNew) {
-        this.isNew = isNew;
+    public void setIsNew(boolean newValue) {
+        this.isNew = newValue;
     }
 
     // Getters
+    public String getName() {
+        return name;
+    }
     public double getPrice() {
         return price;
     }
@@ -47,8 +42,8 @@ public class MenuItem {
     public String getCategory() {
         return category;
     }
-    public Date getDateLastModified() {
-        return dateLastModified;
+    public Date getDateCreated() {
+        return dateCreated;
     }
     public boolean getIsNew() {
         return isNew;

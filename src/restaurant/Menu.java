@@ -5,6 +5,7 @@ import java.util.*;
 public class Menu {
     private Date dateLastModified;
     private Map<String, List<MenuItem>> menuData;
+    private int newAgeInDays = 14;
 
     // Constructors
     public Menu(List<MenuItem> items) {
@@ -25,7 +26,6 @@ public class Menu {
             menuData.put(categoryKey, newList);
         }
         this.dateLastModified = new Date();
-        updateNewStatus();
     }
 
     public boolean removeMenuItem(MenuItem item) {
@@ -36,7 +36,6 @@ public class Menu {
                 menuData.remove(categoryKey);
             }
             this.dateLastModified = new Date();
-            updateNewStatus();
         }
         return itemWasRemoved;
     }
@@ -44,7 +43,7 @@ public class Menu {
     private void updateNewStatus() {
         for (Map.Entry<String, List<MenuItem>> entry : menuData.entrySet()) {
             for (MenuItem item : entry.getValue()) {
-                if (item.getDateLastModified().getTime() - this.dateLastModified.getTime() < 14 * 24 * 60 * 60 *1000) {
+                if (Math.abs(item.getDateCreated().getTime() - this.dateLastModified.getTime()) < newAgeInDays * 24 * 60 * 60 *1000) {
                     item.setIsNew(true);
                 } else {
                     item.setIsNew(false);
@@ -59,15 +58,21 @@ public class Menu {
         return dateLastModified;
     }
 
-    public Map<String, List<MenuItem>> getMenuData() {
-        return menuData;
+    public int getNewAgeInDays() {
+        return newAgeInDays;
     }
 
     public Set<String> getCategories() {
         return menuData.keySet();
     }
 
+    public Map<String, List<MenuItem>> getMenuData() {
+        updateNewStatus();
+        return menuData;
+    }
+    
     public List<MenuItem> getMenuCategory(String category) {
+        updateNewStatus();
         return menuData.get(category);
     }
 }
