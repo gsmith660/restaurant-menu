@@ -70,7 +70,7 @@ public class Menu {
         updateNewStatus();
         return menuData;
     }
-    
+
     public List<MenuItem> getMenuCategory(String category) {
         updateNewStatus();
         return menuData.get(category);
