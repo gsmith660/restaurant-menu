@@ -75,4 +75,18 @@ public class Menu {
         updateNewStatus();
         return menuData.get(category);
     }
+
+    // toString
+    @Override
+    public String toString() {
+        String output = "";
+        for (String categoryKey : menuData.keySet()) {
+            output += categoryKey + "\n" +
+                    "********************" + "\n\n";
+            for (MenuItem item : menuData.get(categoryKey)) {
+                output += item.toString() + "*****" + "\n";
+            }
+        }
+        return output;
+    }
 }

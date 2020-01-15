@@ -1,6 +1,7 @@
 package restaurant;
 
 import java.util.Date;
+import java.util.Objects;
 
 public class MenuItem {
     private double price;
@@ -47,5 +48,41 @@ public class MenuItem {
     }
     public boolean getIsNew() {
         return isNew;
+    }
+
+
+    // equals and hashCode
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MenuItem menuItem = (MenuItem) o;
+        return description.equals(menuItem.description) &&
+                category.equals(menuItem.category) &&
+                name.equals(menuItem.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(description, category, name);
+    }
+
+
+    // toString
+    @Override
+    public String toString() {
+        String newMessage = "";
+        if (isNew) {
+            newMessage = "New Item!\n";
+        }
+        return newMessage +
+                "Name: " + name + "\n" +
+                "Description: " + description + "\n" +
+                "Price: " + price + "\n";
+    }
+
+    public String singleUseToString() {
+        return toString() +
+                "Category: " + category + "\n";
     }
 }
