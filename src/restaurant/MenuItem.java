@@ -5,15 +5,15 @@ import java.util.Objects;
 
 public class MenuItem {
     private double price;
-    private String description;
-    private String category;
+    private final String description;
+    private final MenuCategory category;
     private boolean isNew;
 
-    private String name;
-    private Date dateCreated;
+    private final String name;
+    private final Date dateCreated;
 
     // Constructors
-    public MenuItem(String name, double price, String description, String category) {
+    public MenuItem(String name, double price, String description, MenuCategory category) {
         this.name = name;
         this.price = price;
         this.description = description;
@@ -40,7 +40,7 @@ public class MenuItem {
     public String getDescription() {
         return description;
     }
-    public String getCategory() {
+    public MenuCategory getCategory() {
         return category;
     }
     public Date getDateCreated() {
@@ -87,6 +87,6 @@ public class MenuItem {
             toStringOutput = toStringOutput.substring(10);
         }
         return toStringOutput +
-                "Category: " + category + "\n";
+                "Category: " + category.getDisplayName() + "\n";
     }
 }

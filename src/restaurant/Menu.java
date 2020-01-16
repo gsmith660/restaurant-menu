@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Menu {
     private Date dateLastModified;
-    private Map<String, List<MenuItem>> menuData = new HashMap<>();
+    private Map<MenuCategory, List<MenuItem>> menuData = new HashMap<>();
     private int newAgeInDays = 14;
 
     // Constructors
@@ -17,7 +17,7 @@ public class Menu {
 
     // Setters
     public void addMenuItem(MenuItem item) {
-        String categoryKey = item.getCategory();
+        MenuCategory categoryKey = item.getCategory();
         if (menuData.containsKey(categoryKey)) {
             if (!menuData.get(categoryKey).contains(item)) {
                 menuData.get(categoryKey).add(item);
@@ -33,7 +33,7 @@ public class Menu {
     }
 
     public boolean removeMenuItem(MenuItem item) {
-        String categoryKey = item.getCategory();
+        MenuCategory categoryKey = item.getCategory();
         boolean itemWasRemoved = menuData.get(categoryKey).remove(item);
         if (itemWasRemoved) {
             if (menuData.get(categoryKey).isEmpty()) {
@@ -45,7 +45,7 @@ public class Menu {
     }
 
     private void updateNewStatus() {
-        for (Map.Entry<String, List<MenuItem>> entry : menuData.entrySet()) {
+        for (Map.Entry<MenuCategory, List<MenuItem>> entry : menuData.entrySet()) {
             for (MenuItem item : entry.getValue()) {
                 if (Math.abs(item.getDateCreated().getTime() - this.dateLastModified.getTime()) < newAgeInDays * 24 * 60 * 60 * 1000) {
                     item.setIsNew(true);
@@ -66,16 +66,16 @@ public class Menu {
         return newAgeInDays;
     }
 
-    public Set<String> getCategories() {
+    public Set<MenuCategory> getCategories() {
         return menuData.keySet();
     }
 
-    public Map<String, List<MenuItem>> getMenuData() {
+    public Map<MenuCategory, List<MenuItem>> getMenuData() {
         updateNewStatus();
         return menuData;
     }
 
-    public List<MenuItem> getMenuCategory(String category) {
+    public List<MenuItem> getMenuCategory(MenuCategory category) {
         updateNewStatus();
         return menuData.get(category);
     }
@@ -83,10 +83,10 @@ public class Menu {
     // toString
     @Override
     public String toString() {
-        String output = "";
-        for (String categoryKey : menuData.keySet()) {
+        String output = "Menu was last updated " + dateLastModified + "\n";
+        for (MenuCategory categoryKey : menuData.keySet()) {
             output += "\n" + "********************" + "\n" +
-                    categoryKey + "\n" +
+                    categoryKey.getDisplayName() + "\n" +
                     "********************";
             for (MenuItem item : menuData.get(categoryKey)) {
                 output += "\n" + "*****" + "\n" + item.toString() + "*****" + "\n";
