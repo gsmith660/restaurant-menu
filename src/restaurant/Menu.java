@@ -19,7 +19,11 @@ public class Menu {
     public void addMenuItem(MenuItem item) {
         String categoryKey = item.getCategory();
         if (menuData.containsKey(categoryKey)) {
-            menuData.get(categoryKey).add(item);
+            if (!menuData.get(categoryKey).contains(item)) {
+                menuData.get(categoryKey).add(item);
+            } else {
+                System.out.println("The " + item.getName() + " item is already on the menu.");
+            }
         } else {
             List<MenuItem> newList = new ArrayList<>();
             newList.add(item);
@@ -43,7 +47,7 @@ public class Menu {
     private void updateNewStatus() {
         for (Map.Entry<String, List<MenuItem>> entry : menuData.entrySet()) {
             for (MenuItem item : entry.getValue()) {
-                if (Math.abs(item.getDateCreated().getTime() - this.dateLastModified.getTime()) < newAgeInDays * 24 * 60 * 60 *1000) {
+                if (Math.abs(item.getDateCreated().getTime() - this.dateLastModified.getTime()) < newAgeInDays * 24 * 60 * 60 * 1000) {
                     item.setIsNew(true);
                 } else {
                     item.setIsNew(false);

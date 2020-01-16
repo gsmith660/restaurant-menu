@@ -52,6 +52,9 @@ public class Restaurant {
 
 //        System.out.println(appToRemove.equals(menu.getMenuCategory("appetizer").get(0)));
         menu.removeMenuItem(appToRemove);
+//        System.out.print(menu.toString());
+
+        menu.addMenuItem(singleDessertItem);
         System.out.print(menu.toString());
 
     }
