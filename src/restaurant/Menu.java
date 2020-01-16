@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Menu {
     private Date dateLastModified;
-    private Map<String, List<MenuItem>> menuData;
+    private Map<String, List<MenuItem>> menuData = new HashMap<>();
     private int newAgeInDays = 14;
 
     // Constructors
@@ -81,10 +81,11 @@ public class Menu {
     public String toString() {
         String output = "";
         for (String categoryKey : menuData.keySet()) {
-            output += categoryKey + "\n" +
-                    "********************" + "\n\n";
+            output += "\n" + "********************" + "\n" +
+                    categoryKey + "\n" +
+                    "********************";
             for (MenuItem item : menuData.get(categoryKey)) {
-                output += item.toString() + "*****" + "\n";
+                output += "\n" + "*****" + "\n" + item.toString() + "*****" + "\n";
             }
         }
         return output;

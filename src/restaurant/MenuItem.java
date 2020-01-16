@@ -78,11 +78,15 @@ public class MenuItem {
         return newMessage +
                 "Name: " + name + "\n" +
                 "Description: " + description + "\n" +
-                "Price: " + price + "\n";
+                "Price: $" + String.format("%.2f", price) + "\n";
     }
 
     public String singleUseToString() {
-        return toString() +
+        String toStringOutput = toString();
+        if (isNew) {
+            toStringOutput = toStringOutput.substring(10);
+        }
+        return toStringOutput +
                 "Category: " + category + "\n";
     }
 }
